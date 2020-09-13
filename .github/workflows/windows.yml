@@ -7,33 +7,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-
-    - name: git clone
-      run: git clone https://github.com/tdlib/td.git
+    - name: build tdlib
+      run: $GITHUB_ACTION_PATH/script.sh
       shell: pwsh
-
-    - name: mkdir down
-      run: 
-        cd td
-        Remove-Item build -Force -Recurse -ErrorAction SilentlyContinue
-        mkdir build
-      shell: pwsh
-
-    - name: build
-      run: 
-        cd build
-        cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../vcpkg/scripts/buildsystems/vcpkg.cmake ..
-        cmake --build . --target install --config Release
-      shell: pwsh
-
     - name: show build
-      run:
-        cd ..
-        cd ..
-        dir td/tdlib
-      shell: pwsh
-
-    - uses: actions/upload-artifact@v2
-      with:
-        name: my-artifact
-        path: td/tdlib/
+      run: dir .

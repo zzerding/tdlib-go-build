@@ -1,0 +1,40 @@
+name: Windows
+on:
+  push:
+jobs:
+  windows:
+    runs-on: ubuntu-18.04 
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+
+    - name: apt update
+      run:
+       sudo apt-get update &&
+       sudo apt-get upgrade &&
+       sudo apt-get install make git zlib1g-dev libssl-dev gperf php cmake clang-6.0 libc++-dev libc++abi-dev
+
+    - name: git clone
+      run: git clone https://github.com/tdlib/td.git
+
+    - name: mkdir build
+      run: cd td &&rm -rf build&& mdkir build&&cd build&&ls .
+
+    - name: build setting
+      run: 
+        export CXXFLAGS="-stdlib=libc++"&&
+        CC=/usr/bin/clang-6.0 CXX=/usr/bin/clang++-6.0 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
+
+    - name: build install
+      run: cmake --build . --target prepare_cross_compiling && cmake --build . --target install
+      shell: pwsh
+      
+    - name: show build
+      run: cd ..;cd ..;ls td/tdlib/
+      shell: pwsh
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: td/tdlib/

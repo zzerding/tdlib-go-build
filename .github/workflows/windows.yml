@@ -11,7 +11,7 @@ jobs:
       run: dir .
       shell: pwsh
     - name: build tdlib
-      run: powershell script.ps1
+      run: powershell ./script.ps1
       shell: pwsh
     - name: show build
       run: dir .

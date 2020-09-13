@@ -1,4 +1,4 @@
-name: Windows
+name: linux build 
 on:
   push:
 jobs:
@@ -19,7 +19,7 @@ jobs:
       run: git clone https://github.com/tdlib/td.git
 
     - name: mkdir build
-      run: cd td &&rm -rf build&& mdkir build&&cd build&&ls .
+      run: cd td &&rm -rf build&& mkdir build&&cd build&&ls .
 
     - name: build setting
       run: 

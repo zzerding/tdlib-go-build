@@ -20,4 +20,6 @@ jobs:
       with:
         name: my-artifact
         path: td/tdlib/
+    - name: test cd
+      run: cd /;pwd;dir .
     

@@ -8,19 +8,25 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
 
-    - name: Build tdlib for windows
-      shell: pwsh
+    - name: git clone
       run: 
         git clone https://github.com/tdlib/td.git
+
+    - name: mkdir build 
         cd td
         Remove-Item build -Force -Recurse -ErrorAction SilentlyContinue
         mkdir build
+
+    - name: build
         cd build
         cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../vcpkg/scripts/buildsystems/vcpkg.cmake ..
         cmake --build . --target install --config Release
+
+    - name: show build
         cd ..
         cd ..
         dir td/tdlib
+
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact

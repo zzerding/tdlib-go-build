@@ -4,11 +4,12 @@ on:
 jobs:
   windows:
     runs-on: windows-latest
-     steps:
+    steps:
     - name: Checkout
       uses: actions/checkout@master
-    steps:
+
     - name: Build tdlib for windows
+      shell: pwsh
       run: 
         git clone https://github.com/tdlib/td.git
         cd td
@@ -20,9 +21,7 @@ jobs:
         cd ..
         cd ..
         dir td/tdlib
-      shell: pwsh
-    steps:
     - uses: actions/upload-artifact@v2
       with:
-      name: my-artifact
-      path: td/tdlib/
+        name: my-artifact
+        path: td/tdlib/

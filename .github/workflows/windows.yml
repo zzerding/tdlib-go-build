@@ -7,16 +7,17 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-    - name: show env path
-      run: echo ${env:GITHUB_ACTION_PATH} 
-      shell: pwsh
     - name: show path
       run: dir .
       shell: pwsh
     - name: build tdlib
-      run: powershell ${env:GITHUB_ACTION_PATH}/script.ps1
+      run: powershell script.ps1
       shell: pwsh
     - name: show build
       run: dir .
       shell: pwsh
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: td/tdlib/
     

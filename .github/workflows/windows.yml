@@ -8,6 +8,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
 
+    - name: chocolatey install gperf  
+      run: chocolatey install gperf  
+      shell: pwsh
+
     - name: git clone
       run: git clone https://github.com/tdlib/td.git
       shell: pwsh

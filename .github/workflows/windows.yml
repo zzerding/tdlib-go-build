@@ -7,8 +7,16 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
+    - name: show env path
+      run: echo ${env:GITHUB_ACTION_PATH} 
+      shell: pwsh
+    - name: show path
+      run: dir .
+      shell: pwsh
     - name: build tdlib
-      run: $GITHUB_ACTION_PATH/script.ps1
+      run: powershell ${env:GITHUB_ACTION_PATH}/script.ps1
       shell: pwsh
     - name: show build
       run: dir .
+      shell: pwsh
+    

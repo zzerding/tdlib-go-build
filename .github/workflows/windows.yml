@@ -7,19 +7,32 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-    - name: show path
-      run: dir .
+
+    - name: git clone
+      run: git clone https://github.com/tdlib/td.git
       shell: pwsh
-    - name: build tdlib
-      run: powershell ./script.ps1
+
+    - name: mkdir build
+      run: 
+        cd td;
+        Remove-Item build -Force -Recurse -ErrorAction SilentlyContinue;
+        mkdir build;
+        cd buil;
       shell: pwsh
+
+    - name: build setting
+      run: cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
+      shell: pwsh
+
+    - name: build install
+      run: cmake --build . --target install --config Release
+      shell: pwsh
+      
     - name: show build
-      run: dir .
+      run: cd ..;cd ..;dir td/tdlib/
       shell: pwsh
+
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
         path: td/tdlib/
-    - name: test cd
-      run: cd /;pwd;dir .
-    

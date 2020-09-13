@@ -23,15 +23,16 @@ jobs:
 
     - name: build setting
       run: 
-        export CXXFLAGS="-stdlib=libc++"&&
+        cd td/build &&
+        export CXXFLAGS="-stdlib=libc++" &&
         CC=/usr/bin/clang-6.0 CXX=/usr/bin/clang++-6.0 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
 
     - name: build install
-      run: cmake --build . --target prepare_cross_compiling && cmake --build . --target install
+      run: cd td/build && cmake --build . --target prepare_cross_compiling && cmake --build . --target install
       shell: pwsh
       
     - name: show build
-      run: cd ..;cd ..;ls td/tdlib/
+      run: ls td/tdlib/
       shell: pwsh
 
     - uses: actions/upload-artifact@v2

@@ -21,15 +21,22 @@ jobs:
       shell: pwsh
 
     - name: build setting
-      run: cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
+      run: 
+        cd td/build;
+        cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..;
+        pwd;
+        dir .;
       shell: pwsh
 
     - name: build install
-      run: cmake --build . --target install --config Release
+      run:
+        cd td/build; 
+        cmake --build . --target install --config Release;
+        dir .;
       shell: pwsh
       
     - name: show build
-      run: cd ..;cd ..;dir td/tdlib/
+      run: dir td/tdlib/
       shell: pwsh
 
     - uses: actions/upload-artifact@v2
